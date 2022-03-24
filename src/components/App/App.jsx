@@ -7,6 +7,7 @@ import './App.css';
 function App() {
     let [shoppingList, setShoppingList] = useState([]);
 
+    const [newPurchaseStatus, setNewPurchaseStatus] = useState('')
     let [newItem, setNewItem] = useState('')
     let [newQuantity, setNewQuantity] = useState('')
     let [newUnit, setNewUnit] = useState ('')
@@ -15,7 +16,35 @@ function App() {
         getList()
     }, [])
 
-    
+    const handleUpdate = (id) => {
+        console.log( 'inside of Update');
+
+        axios.put(`/list/${id}`)
+            .then( response => {
+                console.log( 'updated!', response);
+                getList();
+            }).catch( err => {
+                console.log(err);
+            })
+    }
+
+    const checkPurchased = (purchased, id ) => {
+        console.log( purchased );
+        if( purchased === false){
+            return(
+                <>
+                    <button onClick={(event) => removeItem(id)}>DELETE</button>
+                    <button onClick={(event) => handleUpdate(id)}>PURCHASE</button>
+                </>
+
+            )
+        } else if ( purchased === true){
+            return(
+                <p>Purchased</p>
+            )
+        }
+    }
+
     const getList = () => {
         console.log('In GET');
 
@@ -38,7 +67,8 @@ function App() {
                 console.log(err);
             })
     }
-    //post route 
+
+    //post route adds item to DB 
     const addList = (event) => {
         event.preventDefault();
         console.log('In POST', newItem, newQuantity, newUnit);
@@ -54,6 +84,18 @@ function App() {
         });
     }
 
+
+    const handleReset = () => {
+        console.log('clicked');
+        
+        axios.put('/list/reset')
+        .then((response) => {
+            console.log('RESET');
+            getList();
+        }).catch((err) => {
+            console.log('Error in PUT RESET', err);
+        })
+    }
 
     return (
         <div className="App">
@@ -86,7 +128,7 @@ function App() {
                 <button onClick={addList}>ADD ITEM</button>
 
                 <h1>Shopping List</h1>
-                <button>RESET</button>
+                <button onClick={handleReset}>RESET</button>
                 <button>CLEAR</button>
 
                 {/* ShoppingList will be its own component */}
@@ -98,8 +140,7 @@ function App() {
                                 <p>{listItem.quantity}</p>
                                 <p>{listItem.unit}</p>
                                 <p>{listItem.purchased}</p>
-                                <button onClick={(event) => removeItem(listItem.id)}>DELETE</button>
-                                <button>PURCHASE</button>
+                                {checkPurchased(listItem.purchased, listItem.id)}
                             </div>
                         ))}
                 </div>
