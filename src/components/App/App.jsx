@@ -7,9 +7,40 @@ import './App.css';
 function App() {
     let [shoppingList, setShoppingList] = useState([]);
 
+    const [newPurchaseStatus, setNewPurchaseStatus] = useState('')
+
     useEffect(() => {
         getList()
     }, [])
+
+    const handleUpdate = (id) => {
+        console.log( 'inside of Update');
+
+        axios.put(`/list/${id}`)
+            .then( response => {
+                console.log( 'updated!', response);
+                getList();
+            }).catch( err => {
+                console.log(err);
+            })
+    }
+
+    const checkPurchased = (purchased, id ) => {
+        console.log( purchased );
+        if( purchased === false){
+            return(
+                <>
+                    <button onClick={(event) => handleDelete(id)}>DELETE</button>
+                    <button onClick={(event) => handleUpdate(id)}>PURCHASE</button>
+                </>
+
+            )
+        } else if ( purchased === true){
+            return(
+                <p>Purchased</p>
+            )
+        }
+    }
 
     const getList = () => {
         console.log('In GET');
@@ -22,7 +53,6 @@ function App() {
         })
 
     }
-
 
     return (
         <div className="App">
@@ -48,8 +78,7 @@ function App() {
                                 <p>{listItem.quantity}</p>
                                 <p>{listItem.unit}</p>
                                 <p>{listItem.purchased}</p>
-                                <button onClick={(event) => handleDelete(student.id)}>DELETE</button>
-                                <button>PURCHASE</button>
+                                {checkPurchased(listItem.purchased, listItem.id)}
                             </div>
                         ))}
                 </div>
