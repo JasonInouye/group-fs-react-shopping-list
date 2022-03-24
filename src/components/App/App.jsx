@@ -38,7 +38,8 @@ function App() {
                 console.log(err);
             })
     }
-    //post route 
+
+    //post route adds item to DB 
     const addList = (event) => {
         event.preventDefault();
         console.log('In POST', newItem, newQuantity, newUnit);
@@ -52,6 +53,18 @@ function App() {
         }).catch(err => {
             console.log('Error in POST', err);
         });
+    }
+
+    const handleReset = () => {
+        console.log('clicked');
+        
+        axios.put('/list/reset')
+        .then((response) => {
+            console.log('RESET');
+            getList();
+        }).catch((err) => {
+            console.log('Error in PUT RESET', err);
+        })
     }
 
 
@@ -86,7 +99,7 @@ function App() {
                 <button onClick={addList}>ADD ITEM</button>
 
                 <h1>Shopping List</h1>
-                <button>RESET</button>
+                <button onClick={handleReset}>RESET</button>
                 <button>CLEAR</button>
 
                 {/* ShoppingList will be its own component */}
