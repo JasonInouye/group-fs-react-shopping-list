@@ -20,7 +20,7 @@ router.get('/', (req, res) => {
         })
 });
 
-router.put('/:id', (req,res) => {
+router.put('/addItem/:id', (req,res) => {
     let id = req.params.id;
     console.log(( 'inside put router', id));
 

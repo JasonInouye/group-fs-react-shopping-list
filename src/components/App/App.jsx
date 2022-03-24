@@ -19,7 +19,7 @@ function App() {
     const handleUpdate = (id) => {
         console.log( 'inside of Update');
 
-        axios.put(`/list/${id}`)
+        axios.put(`/list/addItem/${id}`)
             .then( response => {
                 console.log( 'updated!', response);
                 getList();
