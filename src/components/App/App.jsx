@@ -20,14 +20,25 @@ function App() {
         }).catch(err => {
             console.log(err);
         })
-
     }
 
+    // removeItem takes in an ID number and DELETEs the item from DB  
+    const removeItem = (itemId) => {
+        console.log('in removeItem', itemId);
+
+        axios.delete(`/list/${itemId}`)
+            .then(response => {
+                getList();
+            }).catch(err => {
+                console.log(err);
+            })
+    }
 
     return (
         <div className="App">
             <Header />
             <main>
+                {/* Inputs and Buttons will be a new Component */}
                 <h1>Add an Item</h1>
                 <label htmlFor="Item">Item: </label>
                 <input type="text" placeholder="Item"/>
@@ -41,6 +52,8 @@ function App() {
                 <button>RESET</button>
                 <button>CLEAR</button>
 
+                {/* ShoppingList will be its own component */}
+                {/* Each Item should be its own component */}
                 <div>
                 {shoppingList.map(listItem => (
                             <div key={listItem.id}>
@@ -48,7 +61,7 @@ function App() {
                                 <p>{listItem.quantity}</p>
                                 <p>{listItem.unit}</p>
                                 <p>{listItem.purchased}</p>
-                                <button onClick={(event) => handleDelete(student.id)}>DELETE</button>
+                                <button onClick={(event) => removeItem(listItem.id)}>DELETE</button>
                                 <button>PURCHASE</button>
                             </div>
                         ))}
