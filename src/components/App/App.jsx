@@ -25,16 +25,26 @@ function App() {
         }).catch(err => {
             console.log(err);
         })
-
     }
 
+    // removeItem takes in an ID number and DELETEs the item from DB  
+    const removeItem = (itemId) => {
+        console.log('in removeItem', itemId);
+
+        axios.delete(`/list/${itemId}`)
+            .then(response => {
+                getList();
+            }).catch(err => {
+                console.log(err);
+            })
+    }
     //post route 
     const addList = (event) => {
         event.preventDefault();
         console.log('In POST', newItem, newQuantity, newUnit);
 
         axios.post('/list', {item: newItem, quantity: newQuantity, unit: newUnit})
-          .then(response => {
+        .then(response => {
             getList();
             setNewItem('')
             setNewQuantity('')
@@ -49,6 +59,7 @@ function App() {
         <div className="App">
             <Header />
             <main>
+                {/* Inputs and Buttons will be a new Component */}
                 <h1>Add an Item</h1>
 
                 <label htmlFor="Item">Item: </label>
@@ -78,6 +89,8 @@ function App() {
                 <button>RESET</button>
                 <button>CLEAR</button>
 
+                {/* ShoppingList will be its own component */}
+                {/* Each Item should be its own component */}
                 <div>
                 {shoppingList.map(listItem => (
                             <div key={listItem.id}>
@@ -85,7 +98,7 @@ function App() {
                                 <p>{listItem.quantity}</p>
                                 <p>{listItem.unit}</p>
                                 <p>{listItem.purchased}</p>
-                                <button onClick={(event) => handleDelete(student.id)}>DELETE</button>
+                                <button onClick={(event) => removeItem(listItem.id)}>DELETE</button>
                                 <button>PURCHASE</button>
                             </div>
                         ))}
