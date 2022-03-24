@@ -93,7 +93,7 @@ function App() {
                 {/* Each Item should be its own component */}
                 <div>
                 {shoppingList.map(listItem => (
-                            <div key={listItem.id}>
+                            <div className="itemContainer" key={listItem.id}>
                                 <p>{listItem.item}</p>
                                 <p>{listItem.quantity}</p>
                                 <p>{listItem.unit}</p>
