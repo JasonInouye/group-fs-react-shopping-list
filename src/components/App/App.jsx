@@ -33,7 +33,7 @@ function App() {
         if( purchased === false){
             return(
                 <>
-                    <button onClick={(event) => handleDelete(id)}>DELETE</button>
+                    <button onClick={(event) => removeItem(id)}>DELETE</button>
                     <button onClick={(event) => handleUpdate(id)}>PURCHASE</button>
                 </>
 
