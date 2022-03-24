@@ -55,6 +55,8 @@ router.delete('/:id', (req, res) => {
             res.sendStatus(500);
         });
 });
+
+//POST ROUTE - puts item into DB 
 router.post('/', (req,res) =>{
     let newItem = req.body;
 
