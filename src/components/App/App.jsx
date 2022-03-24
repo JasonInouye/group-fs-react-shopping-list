@@ -8,6 +8,9 @@ function App() {
     let [shoppingList, setShoppingList] = useState([]);
 
     const [newPurchaseStatus, setNewPurchaseStatus] = useState('')
+    let [newItem, setNewItem] = useState('')
+    let [newQuantity, setNewQuantity] = useState('')
+    let [newUnit, setNewUnit] = useState ('')
 
     useEffect(() => {
         getList()
@@ -51,26 +54,71 @@ function App() {
         }).catch(err => {
             console.log(err);
         })
+    }
 
+    // removeItem takes in an ID number and DELETEs the item from DB  
+    const removeItem = (itemId) => {
+        console.log('in removeItem', itemId);
+
+        axios.delete(`/list/${itemId}`)
+            .then(response => {
+                getList();
+            }).catch(err => {
+                console.log(err);
+            })
+    }
+    //post route 
+    const addList = (event) => {
+        event.preventDefault();
+        console.log('In POST', newItem, newQuantity, newUnit);
+
+        axios.post('/list', {item: newItem, quantity: newQuantity, unit: newUnit})
+        .then(response => {
+            getList();
+            setNewItem('')
+            setNewQuantity('')
+            setNewUnit('')
+        }).catch(err => {
+            console.log('Error in POST', err);
+        });
     }
 
     return (
         <div className="App">
             <Header />
             <main>
+                {/* Inputs and Buttons will be a new Component */}
                 <h1>Add an Item</h1>
+
                 <label htmlFor="Item">Item: </label>
-                <input type="text" placeholder="Item"/>
+                <input 
+                type="text" 
+                placeholder="Item"
+                onChange={(event) => setNewItem(event.target.value)}
+                value={newItem}/>
+
                 <label htmlFor="Item">Quantity: </label>
-                <input type="number" placeholder="Quantity"/>
+                <input 
+                type="number" 
+                placeholder="Quantity"
+                onChange={(event) => setNewQuantity(event.target.value)}
+                value={newQuantity}/>
+
                 <label htmlFor="Item">Unit: </label>
-                <input type="text" placeholder="Unit"/>
-                <button>ADD ITEM</button>
+                <input 
+                type="text" 
+                placeholder="Unit"
+                onChange={(event) => setNewUnit(event.target.value)}
+                value={newUnit}/>
+
+                <button onClick={addList}>ADD ITEM</button>
 
                 <h1>Shopping List</h1>
                 <button>RESET</button>
                 <button>CLEAR</button>
 
+                {/* ShoppingList will be its own component */}
+                {/* Each Item should be its own component */}
                 <div>
                 {shoppingList.map(listItem => (
                             <div key={listItem.id}>
