@@ -7,6 +7,7 @@ import './App.css';
 function App() {
     let [shoppingList, setShoppingList] = useState([]);
 
+    const [newPurchaseStatus, setNewPurchaseStatus] = useState('')
     let [newItem, setNewItem] = useState('')
     let [newQuantity, setNewQuantity] = useState('')
     let [newUnit, setNewUnit] = useState ('')
@@ -15,7 +16,35 @@ function App() {
         getList()
     }, [])
 
-    
+    const handleUpdate = (id) => {
+        console.log( 'inside of Update');
+
+        axios.put(`/list/${id}`)
+            .then( response => {
+                console.log( 'updated!', response);
+                getList();
+            }).catch( err => {
+                console.log(err);
+            })
+    }
+
+    const checkPurchased = (purchased, id ) => {
+        console.log( purchased );
+        if( purchased === false){
+            return(
+                <>
+                    <button onClick={(event) => removeItem(id)}>DELETE</button>
+                    <button onClick={(event) => handleUpdate(id)}>PURCHASE</button>
+                </>
+
+            )
+        } else if ( purchased === true){
+            return(
+                <p>Purchased</p>
+            )
+        }
+    }
+
     const getList = () => {
         console.log('In GET');
 
@@ -53,7 +82,6 @@ function App() {
             console.log('Error in POST', err);
         });
     }
-
 
     return (
         <div className="App">
@@ -98,8 +126,7 @@ function App() {
                                 <p>{listItem.quantity}</p>
                                 <p>{listItem.unit}</p>
                                 <p>{listItem.purchased}</p>
-                                <button onClick={(event) => removeItem(listItem.id)}>DELETE</button>
-                                <button>PURCHASE</button>
+                                {checkPurchased(listItem.purchased, listItem.id)}
                             </div>
                         ))}
                 </div>
