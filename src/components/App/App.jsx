@@ -60,11 +60,23 @@ function App() {
     const removeItem = (itemId) => {
         console.log('in removeItem', itemId);
 
-        axios.delete(`/list/${itemId}`)
+        axios.delete(`/list/removeItem/${itemId}`)
             .then(response => {
                 getList();
             }).catch(err => {
                 console.log(err);
+            })
+    }
+
+    // CLEAR data from database
+    const clearItems = () => {
+        console.log('in clearItems');
+
+        axios.delete(`/list/clear`)
+            .then(response => {
+                getList();
+            }).catch(err => {
+                console.log( 'ERR in clear', err);
             })
     }
 
@@ -129,7 +141,7 @@ function App() {
 
                 <h1>Shopping List</h1>
                 <button onClick={handleReset}>RESET</button>
-                <button>CLEAR</button>
+                <button onClick={clearItems}>CLEAR</button>
 
                 {/* ShoppingList will be its own component */}
                 {/* Each Item should be its own component */}
