@@ -103,37 +103,37 @@ function App() {
             <main>
                 {/* Inputs and Buttons will be a new Component */}
                 <h1>Add an Item</h1>
+                <form className="inputContainer">
+                    <label htmlFor="Item">Item: </label>
+                    <input 
+                    type="text" 
+                    placeholder="Item"
+                    onChange={(event) => setNewItem(event.target.value)}
+                    value={newItem}/>
 
-                <label htmlFor="Item">Item: </label>
-                <input 
-                type="text" 
-                placeholder="Item"
-                onChange={(event) => setNewItem(event.target.value)}
-                value={newItem}/>
+                    <label htmlFor="Item">Quantity: </label>
+                    <input 
+                    type="number" 
+                    placeholder="Quantity"
+                    onChange={(event) => setNewQuantity(event.target.value)}
+                    value={newQuantity}/>
 
-                <label htmlFor="Item">Quantity: </label>
-                <input 
-                type="number" 
-                placeholder="Quantity"
-                onChange={(event) => setNewQuantity(event.target.value)}
-                value={newQuantity}/>
+                    <label htmlFor="Item">Unit: </label>
+                    <input 
+                    type="text" 
+                    placeholder="Unit"
+                    onChange={(event) => setNewUnit(event.target.value)}
+                    value={newUnit}/>
 
-                <label htmlFor="Item">Unit: </label>
-                <input 
-                type="text" 
-                placeholder="Unit"
-                onChange={(event) => setNewUnit(event.target.value)}
-                value={newUnit}/>
+                    <button onClick={addList}>ADD ITEM</button>
 
-                <button onClick={addList}>ADD ITEM</button>
-
-                <h1>Shopping List</h1>
-                <button onClick={handleReset}>RESET</button>
-                <button>CLEAR</button>
-
+                    <h1>Shopping List</h1>
+                    <button onClick={handleReset}>RESET</button>
+                    <button>CLEAR</button>
+                </form>
                 {/* ShoppingList will be its own component */}
                 {/* Each Item should be its own component */}
-                <div>
+                <div className="mainDiv">
                 {shoppingList.map(listItem => (
                             <div className="itemContainer" key={listItem.id}>
                                 <p>{listItem.item}</p>
