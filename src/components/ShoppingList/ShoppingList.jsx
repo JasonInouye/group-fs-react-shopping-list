@@ -1,4 +1,5 @@
 import axios from 'axios';
+import ShoppingItem from '../ShoppingItem/ShoppingItem';
 
 function ShoppingList ({shoppingList, getList}) {
     const checkPurchased = (purchased, id ) => {
@@ -9,7 +10,6 @@ function ShoppingList ({shoppingList, getList}) {
                     <button onClick={(event) => removeItem(id)}>DELETE</button>
                     <button onClick={(event) => handleUpdate(id)}>PURCHASE</button>
                 </>
-
             )
         } else if ( purchased === true){
             return(
@@ -44,17 +44,14 @@ function ShoppingList ({shoppingList, getList}) {
 
     return (
         <>
-        
             <div className="mainDiv">
                 {shoppingList.map(listItem => (
-                            <div className="itemContainer" key={listItem.id}>
-                                <p>{listItem.item}</p>
-                                <p>{listItem.quantity}</p>
-                                <p>{listItem.unit}</p>
-                                <p>{listItem.purchased}</p>
-                                {checkPurchased(listItem.purchased, listItem.id)}
-                            </div>
-                        ))}
+                    <ShoppingItem 
+                    key={listItem.id}
+                    listItem={listItem}
+                    checkPurchased={checkPurchased}
+                    />
+                ))}
             </div>
         </>
     );

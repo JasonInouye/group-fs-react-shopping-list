@@ -21,37 +21,37 @@ function ListForm({handleReset, clearItems, getList}){
         });
     }
 
-
     return (
         <>
+            <h1>Add an Item</h1>
             <form className="inputContainer">
-                    <label htmlFor="Item">Item: </label>
-                    <input 
-                    type="text" 
-                    placeholder="Item"
-                    onChange={(event) => setNewItem(event.target.value)}
-                    value={newItem}/>
+                <label htmlFor="Item">Item: </label>
+                <input 
+                type="text" 
+                placeholder="Item"
+                onChange={(event) => setNewItem(event.target.value)}
+                value={newItem}/>
 
-                    <label htmlFor="Item">Quantity: </label>
-                    <input 
-                    type="number" 
-                    placeholder="Quantity"
-                    onChange={(event) => setNewQuantity(event.target.value)}
-                    value={newQuantity}/>
+                <label htmlFor="Item">Quantity: </label>
+                <input 
+                type="number" 
+                placeholder="Quantity"
+                onChange={(event) => setNewQuantity(event.target.value)}
+                value={newQuantity}/>
 
-                    <label htmlFor="Item">Unit: </label>
-                    <input 
-                    type="text" 
-                    placeholder="Unit"
-                    onChange={(event) => setNewUnit(event.target.value)}
-                    value={newUnit}/>
+                <label htmlFor="Item">Unit: </label>
+                <input 
+                type="text" 
+                placeholder="Unit"
+                onChange={(event) => setNewUnit(event.target.value)}
+                value={newUnit}/>
 
-                    <button onClick={(event) => addList(newItem, newQuantity, newUnit)}>ADD ITEM</button>
+                <button onClick={(event) => addList(newItem, newQuantity, newUnit)}>ADD ITEM</button>
 
-                    <h1>Shopping List</h1>
-                    <button onClick={handleReset}>RESET</button>
-                    <button onClick={clearItems}>CLEAR</button>
-                </form>
+                <h1>Shopping List</h1>
+                <button onClick={handleReset}>RESET</button>
+                <button onClick={clearItems}>CLEAR</button>
+            </form>
         </>
     )
 }

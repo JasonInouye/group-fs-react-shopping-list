@@ -9,12 +9,9 @@ import './App.css';
 function App() {
     let [shoppingList, setShoppingList] = useState([]);
 
-
     useEffect(() => {
         getList()
     }, [])
-
-
 
     const getList = () => {
         console.log('In GET');
@@ -27,7 +24,6 @@ function App() {
         })
     }
 
-
     // CLEAR data from database
     const clearItems = () => {
         console.log('in clearItems');
@@ -39,7 +35,6 @@ function App() {
                 console.log('ERR in clear', err);
             })
     }
-
 
     const handleReset = () => {
         console.log('clicked');
@@ -57,13 +52,13 @@ function App() {
         <div className="App">
             <Header />
             <main>
-                {/* Inputs and Buttons will be a new Component */}
-                <h1>Add an Item</h1>
+                
                 <ListForm
                     handleReset={handleReset}
                     clearItems={clearItems}
                     getList={getList}
                 />
+
                 <ShoppingList
                     shoppingList={shoppingList}
                     getList={getList}
