@@ -39,7 +39,7 @@ router.put('/addItem/:id', (req,res) => {
 });
 
 // DELETE route - removes item from DB
-router.delete('/:id', (req, res) => {
+router.delete('/removeItem/:id', (req, res) => {
     const itemToDelete = req.params.id;
     const queryText = `
         DELETE FROM "cart"
